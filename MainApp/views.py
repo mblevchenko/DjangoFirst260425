@@ -28,5 +28,9 @@ email: ya@bk.ru <br>"""
 def item_page(request, item_id):
     for item in items:
         if item["id"] == item_id:
-            text = f"<h1>{item['name']}</h1><h2>Количество: {item['quantity']}</h2>"
+            text=f"<h1>{item['name']}</h1><h2>Количество: {item['quantity']}</h2>"
             return HttpResponse(text) 
+        else:
+            text = f"<h1>Товар с id={item_id} не найден</h1>"
+            return HttpResponse(text) 
+    
