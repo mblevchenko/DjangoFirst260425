@@ -24,4 +24,5 @@ urlpatterns = [
 
     path('item/<int:item_id>/', views.item_page),
 
+    path('items', views.items_list)
 ]

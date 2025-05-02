@@ -26,11 +26,27 @@ email: ya@bk.ru <br>"""
     return HttpResponse(text)
 
 def item_page(request, item_id):
+    item = None
+    for i in items:
+        if i["id"] == item_id:
+            item = i
+            break
+
+    if item is None:
+        text = f"<h1>Товар с id={item_id} не найден</h1>"
+        return HttpResponse(text)
+
+    text = f"<h1>{item['name']}</h1><p>Количество: {item['quantity']}</p>"
+    return HttpResponse(text)
+
+def items_list(request):
+    text = "<h1>Список товаров</h1><ol>"
+
     for item in items:
-        if item["id"] == item_id:
-            text=f"<h1>{item['name']}</h1><h2>Количество: {item['quantity']}</h2>"
-            return HttpResponse(text) 
-        else:
-            text = f"<h1>Товар с id={item_id} не найден</h1>"
-            return HttpResponse(text) 
+        text += f"<li>{item['name']}(осталось: {item['quantity']})</li>"
+
+    text += "</ol>"
+
+    return HttpResponse(text)
+
     
