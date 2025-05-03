@@ -10,6 +10,9 @@ items = [
 ]
 
 # Create your views here.
+def main(request):
+    return render(request, "index.html")
+
 def homepage(request):
     text="""
     <h1>"Изучаем django"</h1>
