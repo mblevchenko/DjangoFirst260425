@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.http import Http404
 
 items = [
    {"id": 1, "name": "Кроссовки abibas" ,"quantity":5},
@@ -9,6 +10,13 @@ items = [
    {"id": 8, "name": "Кепка" ,"quantity":124},
 ]
 
+author = [
+    {"Имя": "Максим"},
+    {"Отчество": "Борисович"}, 
+    {"Фамилия": "Левченко"},
+    {"Телефон": "8-800-555-35-35"},
+    {"email": "ya@bk.ru"}
+]
 # Create your views here.
 def main(request):
     context = {
@@ -18,43 +26,24 @@ def main(request):
     }
     return render(request, "index.html", context)
 
-def homepage(request):
-    text="""
-    <h1>"Изучаем django"</h1>
-    <strong>Автор</strong>: <i>Левченко М.Б.</i>
-    """
-    return HttpResponse(text)
-
 def about(request):
-    text="""Имя: Максим <br>
-Отчество: Борисович <br>
-Фамилия: Левченко <br>
-телефон: 8-800-555-35-35 <br>
-email: ya@bk.ru <br>"""
-    return HttpResponse(text)
-
-def item_page(request, item_id):
-    item = None
-    for i in items:
-        if i["id"] == item_id:
-            item = i
-            break
-
-    if item is None:
-        text = f"<h1>Товар с id={item_id} не найден</h1>"
-        return HttpResponse(text)
-
-    text = f"<h1>{item['name']}</h1><p>Количество: {item['quantity']}</p>"
-    return HttpResponse(text)
+    context = {
+        "author":author
+    }
+    return render(request, "about.html", context)
 
 def items_list(request):
-    text = "<h1>Список товаров</h1><ol>"
+    return render(request, 'items.html', context={'items': items})
 
+def item_page(request, item_id):
+    # Ищем товар
     for item in items:
-        text += f"<li>{item['name']}(осталось: {item['quantity']})</li>"
+        if item['id'] == item_id:
+            return render(request, 'item.html', context={'item': item})
+    
+    raise Http404(f"Товар с id={item_id} не найден")
+    
 
-    text += "</ol>"
 
-    return HttpResponse(text)
 
     

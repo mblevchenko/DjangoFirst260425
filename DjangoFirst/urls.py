@@ -20,11 +20,9 @@ from MainApp import views
 urlpatterns = [
     path('', views.main),
 
-    path('home', views.homepage),
-
     path('about', views.about),
 
     path('item/<int:item_id>/', views.item_page),
 
-    path('items', views.items_list)
+    path('items', views.items_list),
 ]
