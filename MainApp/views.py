@@ -11,10 +11,10 @@ items = [
 ]
 
 author = [
-    {"Имя": "Максим"},
-    {"Отчество": "Борисович"}, 
-    {"Фамилия": "Левченко"},
-    {"Телефон": "8-800-555-35-35"},
+    {"name": "Максим"},
+    {"surname": "Борисович"}, 
+    {"lastname": "Левченко"},
+    {"phone": "8-800-555-35-35"},
     {"email": "ya@bk.ru"}
 ]
 # Create your views here.
@@ -27,10 +27,7 @@ def main(request):
     return render(request, "index.html", context)
 
 def about(request):
-    context = {
-        "author":author
-    }
-    return render(request, "about.html", context)
+    return render(request, "about.html", context={'author': author})
 
 def items_list(request):
     return render(request, 'items.html', context={'items': items})
