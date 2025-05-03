@@ -11,6 +11,11 @@ items = [
 
 # Create your views here.
 def main(request):
+    context = {
+        "name": "Levchenko Maksim",
+        "email": "ya@bk.ru",
+        "phone": "88005553535"
+    }
     return render(request, "index.html")
 
 def homepage(request):
