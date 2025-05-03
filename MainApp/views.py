@@ -16,7 +16,7 @@ def main(request):
         "email": "ya@bk.ru",
         "phone": "88005553535"
     }
-    return render(request, "index.html")
+    return render(request, "index.html", context)
 
 def homepage(request):
     text="""
